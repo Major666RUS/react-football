@@ -71,7 +71,7 @@ class App extends React.Component {
                   <td>{item.name}</td>
                   <td>{item.short_code}</td>
                   <td>{item.founded}</td>
-                  <td><img src={item.logo_path} alt={item.name} width="80" height="80"/></td>
+                  <td><img src={item.logo_path} alt={item.name} width="75" height="75"/></td>
                 </tr>
               )
             }
