@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import './App.css';
 
 // function App() {
@@ -27,8 +27,37 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: []
+      items: [],
+      name: '',
     }
+
+    this.handleChangeName = this.handleChangeName.bind(this)
+  }
+
+  handleChangeName(event) {
+    this.setState({name: event.target.value});
+  }
+
+  changeName(id) {
+    this.setState({
+      items: this.state.items.map(item => {
+        if (item.id === id) item.isActive = true
+        return item
+      })
+    })
+  }
+
+  saveName(id) {
+    this.setState({
+      items: this.state.items.map(item => {
+        if (item.id === id) {
+          item.name = this.state.name
+          item.isActive = false
+        }
+        return item
+      }),
+      name: ''
+    })
   }
 
   componentDidMount() {
@@ -37,7 +66,10 @@ class App extends React.Component {
       .then(
         (result) => {
           this.setState({
-            items: result.data
+            items: result.data.map(item => {
+              item.isActive = false
+              return item
+            })
           });
         },
         // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
@@ -66,9 +98,23 @@ class App extends React.Component {
           <tbody>
             {
               this.state.items.map((item, index) =>
-                <tr>
+                <tr key={item.id}>
                   <td>{index + 1}</td>
-                  <td>{item.name}</td>
+                  <td onClick={this.changeName.bind(this, item.id)}>
+                    { item.isActive ? (
+                      <Form.Group controlId="Name">
+                        <Form.Label>Название команды</Form.Label>
+                        <Form.Control 
+                          placeholder="Название" 
+                          onBlur={this.saveName.bind(this, item.id)} 
+                          className="text-muted"
+                          value={this.state.name} 
+                          onChange={this.handleChangeName}
+                        />
+                      </Form.Group>
+                    ) : ( item.name
+                    )}
+                  </td>
                   <td>{item.short_code}</td>
                   <td>{item.founded}</td>
                   <td><img src={item.logo_path} alt={item.name} width="75" height="75"/></td>
