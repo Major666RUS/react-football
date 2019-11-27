@@ -29,6 +29,7 @@ class App extends React.Component {
     this.state = {
       items: [],
       name: '',
+      sortDirection: 'asc',
     }
 
     this.handleChangeName = this.handleChangeName.bind(this)
@@ -74,6 +75,24 @@ class App extends React.Component {
     }
   }
 
+  sortBy(field) {
+    let items = this.state.items.slice()
+    let sortDirection = this.state.sortDirection
+    items.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return sortDirection === 'desc' ? 1 : -1
+      }
+      if (a[field] > b[field]) {
+        return sortDirection === 'desc' ? -1 : 1
+      }
+      return 0
+    })
+    this.setState({
+      items: items,
+      sortDirection: this.state.sortDirection === 'asc' ? 'desc' : 'asc'
+    })
+  }
+
   componentDidMount() {
     fetch("https://soccer.sportmonks.com/api/v2.0/teams/season/16222?api_token=c105cI8atxvUAMopLsiVqrcUHqZhZmh6RvSWXJBOsLiFtVXPWhJW34IVk8la")
       .then(res => res.json())
@@ -103,9 +122,9 @@ class App extends React.Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>Название команды</th>
+              <th onClick={this.sortBy.bind(this, 'name')}>Название команды</th>
               <th>Сокращение</th>
-              <th>Год основания</th>
+              <th onClick={this.sortBy.bind(this, 'founded')}>Год основания</th>
               <th>Логотип</th>
               <th>Действия</th>
             </tr>

@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://major666rus.github.io/react-football/build/static/css/main.b100e6da.chunk.css",
-    "main.js": "https://major666rus.github.io/react-football/build/static/js/main.0af49c68.chunk.js",
-    "main.js.map": "https://major666rus.github.io/react-football/build/static/js/main.0af49c68.chunk.js.map",
+    "main.js": "https://major666rus.github.io/react-football/build/static/js/main.e942c772.chunk.js",
+    "main.js.map": "https://major666rus.github.io/react-football/build/static/js/main.e942c772.chunk.js.map",
     "runtime-main.js": "https://major666rus.github.io/react-football/build/static/js/runtime-main.c78cd9ca.js",
     "runtime-main.js.map": "https://major666rus.github.io/react-football/build/static/js/runtime-main.c78cd9ca.js.map",
     "static/css/2.b0bb7f2c.chunk.css": "https://major666rus.github.io/react-football/build/static/css/2.b0bb7f2c.chunk.css",
     "static/js/2.75680690.chunk.js": "https://major666rus.github.io/react-football/build/static/js/2.75680690.chunk.js",
     "static/js/2.75680690.chunk.js.map": "https://major666rus.github.io/react-football/build/static/js/2.75680690.chunk.js.map",
     "index.html": "https://major666rus.github.io/react-football/build/index.html",
-    "precache-manifest.41b235bb02bb1d81afb4fac1d8188630.js": "https://major666rus.github.io/react-football/build/precache-manifest.41b235bb02bb1d81afb4fac1d8188630.js",
+    "precache-manifest.0833938195ca22b39467975a02f79ee7.js": "https://major666rus.github.io/react-football/build/precache-manifest.0833938195ca22b39467975a02f79ee7.js",
     "service-worker.js": "https://major666rus.github.io/react-football/build/service-worker.js",
     "static/css/2.b0bb7f2c.chunk.css.map": "https://major666rus.github.io/react-football/build/static/css/2.b0bb7f2c.chunk.css.map",
     "static/css/main.b100e6da.chunk.css.map": "https://major666rus.github.io/react-football/build/static/css/main.b100e6da.chunk.css.map"
@@ -19,6 +19,6 @@
     "static/css/2.b0bb7f2c.chunk.css",
     "static/js/2.75680690.chunk.js",
     "static/css/main.b100e6da.chunk.css",
-    "static/js/main.0af49c68.chunk.js"
+    "static/js/main.e942c772.chunk.js"
   ]
 }
