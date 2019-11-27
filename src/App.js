@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Form } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 import './App.css';
 
 // function App() {
@@ -45,19 +45,33 @@ class App extends React.Component {
         return item
       })
     })
+
   }
 
   saveName(id) {
     this.setState({
       items: this.state.items.map(item => {
         if (item.id === id) {
-          item.name = this.state.name
+          if (this.state.name !== '') item.name = this.state.name
           item.isActive = false
         }
         return item
       }),
       name: ''
     })
+  }
+
+  deleteTeam(id) {
+    let index = this.state.items.findIndex(item => item.id === id)
+    this.setState({
+      items: this.state.items.slice(0, index).concat(this.state.items.slice(index + 1))
+    })
+  }
+
+  handleEnter(id, e) {
+    if (e.key === 'Enter') {
+      this.saveName(id)
+    }
   }
 
   componentDidMount() {
@@ -93,6 +107,7 @@ class App extends React.Component {
               <th>Сокращение</th>
               <th>Год основания</th>
               <th>Логотип</th>
+              <th>Действия</th>
             </tr>
           </thead>
           <tbody>
@@ -105,8 +120,10 @@ class App extends React.Component {
                       <Form.Group controlId="Name">
                         <Form.Label>Название команды</Form.Label>
                         <Form.Control 
-                          placeholder="Название" 
-                          onBlur={this.saveName.bind(this, item.id)} 
+                          autoFocus
+                          placeholder="Название"
+                          onBlur={this.saveName.bind(this, item.id)}
+                          onKeyDown={(e) => this.handleEnter(item.id, e)}
                           className="text-muted"
                           value={this.state.name} 
                           onChange={this.handleChangeName}
@@ -118,6 +135,7 @@ class App extends React.Component {
                   <td>{item.short_code}</td>
                   <td>{item.founded}</td>
                   <td><img src={item.logo_path} alt={item.name} width="75" height="75"/></td>
+                  <td><Button variant="danger" onClick={this.deleteTeam.bind(this, item.id)}>Удалить</Button></td>
                 </tr>
               )
             }
