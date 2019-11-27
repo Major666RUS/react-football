@@ -94,25 +94,29 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://soccer.sportmonks.com/api/v2.0/teams/season/16222?api_token=c105cI8atxvUAMopLsiVqrcUHqZhZmh6RvSWXJBOsLiFtVXPWhJW34IVk8la")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            items: result.data.map(item => {
-              item.isActive = false
-              return item
-            })
-          });
-        },
-        // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
-        // чтобы не перехватывать исключения из ошибок в самих компонентах.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      )
+    fetch('https://api.football-data.org/v2/competitions/2021/teams?season=2019', {
+      headers: {
+        'X-Auth-Token': '6324a72164424ef6ae805e7e77ba04a8'
+      }
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          items: result.teams.map(item => {
+            item.isActive = false
+            return item
+          })
+        });
+      },
+      // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+      // чтобы не перехватывать исключения из ошибок в самих компонентах.
+      (error) => {
+        this.setState({
+          error
+        });
+      }
+    )
   }
 
   render() {
@@ -124,6 +128,7 @@ class App extends React.Component {
               <th>#</th>
               <th onClick={this.sortBy.bind(this, 'name')}>Название команды</th>
               <th>Сокращение</th>
+              <th>Стадион</th>
               <th onClick={this.sortBy.bind(this, 'founded')}>Год основания</th>
               <th>Логотип</th>
               <th>Действия</th>
@@ -151,9 +156,10 @@ class App extends React.Component {
                     ) : ( item.name
                     )}
                   </td>
-                  <td>{item.short_code}</td>
+                  <td>{item.tla}</td>
+                  <td>{item.venue}</td>
                   <td>{item.founded}</td>
-                  <td><img src={item.logo_path} alt={item.name} width="75" height="75"/></td>
+                  <td><img src={item.crestUrl} alt={item.name} width="75" height="75"/></td>
                   <td><Button variant="danger" onClick={this.deleteTeam.bind(this, item.id)}>Удалить</Button></td>
                 </tr>
               )
