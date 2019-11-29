@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 // import App from './App'
 import List from './List'
-import Team from './Team'
+// import Team from './Team'
 // import NotFound from './NotFound'
 import * as serviceWorker from './serviceWorker'
 
@@ -13,8 +13,8 @@ const routing = (
     <Router>
       <div>
         <Route exact path="/" component={List} />
-        <Route exact path="/teams" component={List} />
-        <Route path="/teams/:id" component={Team} />
+        {/* <Route exact path="/teams" component={List} />
+        <Route path="/teams/:id" component={Team} /> */}
         {/* <Route component={NotFound} /> */}
       </div>
     </Router>
