@@ -13,7 +13,7 @@ const routing = (
     <Router>
       <div>
         <App />
-        <Route exact path="/" component={App} />
+        <Route exact path="/" render={() => <div>Home</div>} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
         {/* <Route component={NotFound} /> */}

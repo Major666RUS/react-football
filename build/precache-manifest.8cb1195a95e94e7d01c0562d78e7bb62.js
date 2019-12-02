@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "efb44425d2bacf5ba67caa1d6abd1b63",
+    "revision": "abbbc54f5a1905c27de6b8e73d866ac0",
     "url": "https://major666rus.github.io/react-football/build/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://major666rus.github.io/react-football/build/static/css/2.b0bb7f2c.chunk.css"
   },
   {
-    "revision": "221b3f6926a5f97d2bbc",
+    "revision": "bb10968cee6660589ce9",
     "url": "https://major666rus.github.io/react-football/build/static/css/main.cca8068b.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://major666rus.github.io/react-football/build/static/js/2.991828dc.chunk.js"
   },
   {
-    "revision": "221b3f6926a5f97d2bbc",
-    "url": "https://major666rus.github.io/react-football/build/static/js/main.079f228e.chunk.js"
+    "revision": "bb10968cee6660589ce9",
+    "url": "https://major666rus.github.io/react-football/build/static/js/main.7aa1c914.chunk.js"
   },
   {
     "revision": "855912b095e8f0e2412b",
