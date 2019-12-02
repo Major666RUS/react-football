@@ -10,11 +10,11 @@ import Team from './Team'
 import * as serviceWorker from './serviceWorker'
 
 const routing = (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="test">
-        <Route exact path={process.env.PUBLIC_URL + '/'} component={App} />
-        <Route exact path={process.env.PUBLIC_URL + '/teams'} component={List} />
-        <Route path={process.env.PUBLIC_URL + '/teams/:id'} component={Team} />
+        <Route exact path="/" component={App} />
+        <Route exact path="/teams" component={List} />
+        <Route path="/teams/:id" component={Team} />
         {/* <Route component={NotFound} /> */}
       </div>
     </Router>
