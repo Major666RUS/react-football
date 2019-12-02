@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker'
 const routing = (
     <Router>
       <Switch>
-        <Route exact path="/" component={App} />
+        <Route exact path={process.env.PUBLIC_URL + '/'} component={App} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
         {/* <Route component={NotFound} /> */}
