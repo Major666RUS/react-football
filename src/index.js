@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import App from './App'
@@ -11,12 +11,12 @@ import * as serviceWorker from './serviceWorker'
 
 const routing = (
     <Router>
-      <div>
+      <Switch>
         <Route exact path="/" component={App} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
         {/* <Route component={NotFound} /> */}
-      </div>
+      </Switch>
     </Router>
   )
   ReactDOM.render(routing, document.getElementById('root'))
