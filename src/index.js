@@ -10,7 +10,7 @@ import Team from './Team'
 import * as serviceWorker from './serviceWorker'
 
 const routing = (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Link to="/teams">TEAMS</Link>
       <Switch>
         <Route exact path="/" component={App} />
