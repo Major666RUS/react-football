@@ -80,14 +80,6 @@ class Team extends React.Component {
                 <td>{item.name}</td>
                 <td>{item.position}</td>
                 <td>        
-                  {/* <Flag
-                    name={findCountryCode(item.nationality)}
-                    format="svg"
-                    className="flagImage"
-                    width={100}
-                    alt={item.nationality}
-                    basePath={process.env.PUBLIC_URL + '/img/flags'}
-                  /> */}
                   <Flag 
                     code={findCountryCode(item.nationality)} 
                     className="flagImage"
