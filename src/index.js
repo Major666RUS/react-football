@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker'
 const routing = (
     <Router>
       <div>
-        <Route exact path="/" render={() => <div>Home</div>} />
+        <Route exact path="/" component={App} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
         {/* <Route component={NotFound} /> */}
