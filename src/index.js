@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import App from './App'
@@ -11,7 +11,8 @@ import * as serviceWorker from './serviceWorker'
 
 const routing = (
     <Router basename={process.env.PUBLIC_URL}>
-      <div className="test">
+      <div className="testName">
+        <Link to="/teams">3434</Link>
         <Route exact path="/" component={App} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
