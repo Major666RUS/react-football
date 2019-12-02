@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "file:///C:/Users/vfalin/Desktop/my-app/build/static/css/main.cca8068b.chunk.css",
-    "main.js": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/main.88b9e0e0.chunk.js",
-    "main.js.map": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/main.88b9e0e0.chunk.js.map",
-    "runtime-main.js": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/runtime-main.b0428fd5.js",
-    "runtime-main.js.map": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/runtime-main.b0428fd5.js.map",
-    "static/css/2.b0bb7f2c.chunk.css": "file:///C:/Users/vfalin/Desktop/my-app/build/static/css/2.b0bb7f2c.chunk.css",
-    "static/js/2.f9dc6010.chunk.js": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/2.f9dc6010.chunk.js",
-    "static/js/2.f9dc6010.chunk.js.map": "file:///C:/Users/vfalin/Desktop/my-app/build/static/js/2.f9dc6010.chunk.js.map",
-    "index.html": "file:///C:/Users/vfalin/Desktop/my-app/build/index.html",
-    "precache-manifest.faa96eab7a83ee7ee1a849218e7d61d8.js": "file:///C:/Users/vfalin/Desktop/my-app/build/precache-manifest.faa96eab7a83ee7ee1a849218e7d61d8.js",
-    "service-worker.js": "file:///C:/Users/vfalin/Desktop/my-app/build/service-worker.js",
-    "static/css/2.b0bb7f2c.chunk.css.map": "file:///C:/Users/vfalin/Desktop/my-app/build/static/css/2.b0bb7f2c.chunk.css.map",
-    "static/css/main.cca8068b.chunk.css.map": "file:///C:/Users/vfalin/Desktop/my-app/build/static/css/main.cca8068b.chunk.css.map"
+    "main.css": "https://major666rus.github.io/react-football/build/static/css/main.cca8068b.chunk.css",
+    "main.js": "https://major666rus.github.io/react-football/build/static/js/main.85c46c87.chunk.js",
+    "main.js.map": "https://major666rus.github.io/react-football/build/static/js/main.85c46c87.chunk.js.map",
+    "runtime-main.js": "https://major666rus.github.io/react-football/build/static/js/runtime-main.c78cd9ca.js",
+    "runtime-main.js.map": "https://major666rus.github.io/react-football/build/static/js/runtime-main.c78cd9ca.js.map",
+    "static/css/2.b0bb7f2c.chunk.css": "https://major666rus.github.io/react-football/build/static/css/2.b0bb7f2c.chunk.css",
+    "static/js/2.79ef6bb4.chunk.js": "https://major666rus.github.io/react-football/build/static/js/2.79ef6bb4.chunk.js",
+    "static/js/2.79ef6bb4.chunk.js.map": "https://major666rus.github.io/react-football/build/static/js/2.79ef6bb4.chunk.js.map",
+    "index.html": "https://major666rus.github.io/react-football/build/index.html",
+    "precache-manifest.7580600cea13411c9a2e2fdfd1813f95.js": "https://major666rus.github.io/react-football/build/precache-manifest.7580600cea13411c9a2e2fdfd1813f95.js",
+    "service-worker.js": "https://major666rus.github.io/react-football/build/service-worker.js",
+    "static/css/2.b0bb7f2c.chunk.css.map": "https://major666rus.github.io/react-football/build/static/css/2.b0bb7f2c.chunk.css.map",
+    "static/css/main.cca8068b.chunk.css.map": "https://major666rus.github.io/react-football/build/static/css/main.cca8068b.chunk.css.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.b0428fd5.js",
+    "static/js/runtime-main.c78cd9ca.js",
     "static/css/2.b0bb7f2c.chunk.css",
-    "static/js/2.f9dc6010.chunk.js",
+    "static/js/2.79ef6bb4.chunk.js",
     "static/css/main.cca8068b.chunk.css",
-    "static/js/main.88b9e0e0.chunk.js"
+    "static/js/main.85c46c87.chunk.js"
   ]
 }
