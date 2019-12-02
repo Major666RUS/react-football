@@ -85,8 +85,8 @@ class Team extends React.Component {
                     format="svg"
                     className="flagImage"
                     width={100}
-                    alt="Canada Flag"
-                    basePath='/img/flags'
+                    alt={item.nationality}
+                    basePath={process.env.PUBLIC_URL + '/img/flags'}
                   />{item.nationality}
                </td>
                 <td><Moment format="DD.MM.YYYY" date={item.dateOfBirth}/></td>
