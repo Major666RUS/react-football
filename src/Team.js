@@ -1,6 +1,6 @@
 import React from 'react'
 import Moment from 'react-moment'
-import Flag from 'react-flags'
+import Flag from 'react-world-flags'
 import Countries from './countries.json'
 import { Table } from 'react-bootstrap'
 
@@ -80,13 +80,20 @@ class Team extends React.Component {
                 <td>{item.name}</td>
                 <td>{item.position}</td>
                 <td>        
-                  <Flag
+                  {/* <Flag
                     name={findCountryCode(item.nationality)}
                     format="svg"
                     className="flagImage"
                     width={100}
                     alt={item.nationality}
                     basePath={process.env.PUBLIC_URL + '/img/flags'}
+                  /> */}
+                  <Flag 
+                    code={findCountryCode(item.nationality)} 
+                    className="flagImage"
+                    width={100}
+                    alt={item.nationality}
+                    fallback={ <span className="flagImage">No image</span> }
                   />{item.nationality}
                </td>
                 <td><Moment format="DD.MM.YYYY" date={item.dateOfBirth}/></td>
