@@ -11,10 +11,12 @@ import * as serviceWorker from './serviceWorker'
 
 const routing = (
     <Router>
-      <Route exact path="/" component={App} />
-      <Route exact path="/teams" component={List} />
-      <Route path="/teams/:id" component={Team} />
-      {/* <Route component={NotFound} /> */}
+      <div>
+        <Route exact path="/" component={App} />
+        <Route exact path="/teams" component={List} />
+        <Route path="/teams/:id" component={Team} />
+        {/* <Route component={NotFound} /> */}
+      </div>
     </Router>
   )
   ReactDOM.render(routing, document.getElementById('root'))
