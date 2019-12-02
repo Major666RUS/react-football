@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://major666rus.github.io/react-football/build/precache-manifest.8cb1195a95e94e7d01c0562d78e7bb62.js"
+  "https://major666rus.github.io/react-football/build/precache-manifest.10af3f9b46ca91f48b0af39217a6394f.js"
 );
 
 self.addEventListener('message', (event) => {
