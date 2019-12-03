@@ -2,7 +2,7 @@ import React from 'react'
 import Moment from 'react-moment'
 import Flag from 'react-world-flags'
 import Countries from './countries.json'
-import { Table } from 'react-bootstrap'
+import { Table, Pagination } from 'react-bootstrap'
 
 class Team extends React.Component {
   constructor(props) {
@@ -61,39 +61,55 @@ class Team extends React.Component {
       const entry = Object.entries(Countries).find((country) => country[1] === nationality)
       return entry ? entry[0] : '_unknown'
     }
+
+    let active = 1
+    let items = []
+    for (let number = 1; number <= 5; number++) {
+      items.push(
+        <Pagination.Item key={number} active={number === active}>
+          {number}
+        </Pagination.Item>,
+      )
+    }
+
     return (
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th onClick={this.sortBy.bind(this, 'name')}>Имя и фамилия</th>
-            <th>Позиция на поле</th>
-            <th>Национальность</th>
-            <th onClick={this.sortBy.bind(this, 'dateOfBirth')}>Дата рождения</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.squad.map((item, index) =>
-              <tr key={item.id}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.position}</td>
-                <td>        
-                  <Flag 
-                    code={findCountryCode(item.nationality)} 
-                    className="flagImage"
-                    width={100}
-                    alt={item.nationality}
-                    fallback={ <span className="flagImage">No image</span> }
-                  />{item.nationality}
-               </td>
-                <td><Moment format="DD.MM.YYYY" date={item.dateOfBirth}/></td>
-              </tr>
-            )
-          }
-        </tbody>
-      </Table>
+      <div>
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th onClick={this.sortBy.bind(this, 'name')}>Имя и фамилия</th>
+              <th>Позиция на поле</th>
+              <th>Национальность</th>
+              <th onClick={this.sortBy.bind(this, 'dateOfBirth')}>Дата рождения</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.squad.map((item, index) =>
+                <tr key={item.id}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.position}</td>
+                  <td>        
+                    <Flag 
+                      code={findCountryCode(item.nationality)} 
+                      className="flagImage"
+                      width={100}
+                      alt={item.nationality}
+                      fallback={ <span className="flagImage">No image</span> }
+                    />{item.nationality}
+                </td>
+                  <td><Moment format="DD.MM.YYYY" date={item.dateOfBirth}/></td>
+                </tr>
+              )
+            }
+          </tbody>
+        </Table>
+        <div className="d-flex justify-content-center">
+          <Pagination>{items}</Pagination>
+        </div>
+      </div>
     )
   }
 }

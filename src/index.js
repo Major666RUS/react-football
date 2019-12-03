@@ -6,7 +6,7 @@ import './index.css'
 import App from './App'
 import List from './List'
 import Team from './Team'
-// import NotFound from './NotFound'
+import NotFound from './NotFound'
 import * as serviceWorker from './serviceWorker'
 
 const routing = (
@@ -16,7 +16,7 @@ const routing = (
         <Route exact path="/" component={App} />
         <Route exact path="/teams" component={List} />
         <Route path="/teams/:id" component={Team} />
-        {/* <Route component={NotFound} /> */}
+        <Route component={NotFound} />
       </Switch>
     </Router>
   )
