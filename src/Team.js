@@ -15,10 +15,14 @@ class Team extends React.Component {
         position: '',
         nationality: '',
       },
+      pages: 0,
+      perPage: 10,
+      currentPage: 1,
       sortDirection: 'asc',
     }
     this.handleChangeNationality = this.handleChangeNationality.bind(this)
     this.handleChangePosition = this.handleChangePosition.bind(this)
+    this.changePage = this.changePage.bind(this)
   }
 
   sortBy(field) {
@@ -53,6 +57,10 @@ class Team extends React.Component {
     }});
   }
 
+  changePage(page) {
+    this.setState({currentPage: page})
+  }
+
   componentDidMount() {
     const { params } = this.props.match
     fetch(`https://api.football-data.org/v2/teams/${params.id}`, {
@@ -67,7 +75,8 @@ class Team extends React.Component {
           squad: result.squad.map(item => {
             if (!item.position) item.position = 'Coach'
             return item
-          })
+          }),
+          pages: Math.ceil(result.squad.length / 10)
         })
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
@@ -86,12 +95,15 @@ class Team extends React.Component {
       return entry ? entry[0] : '_unknown'
     }
 
-    let active = 1
     let items = []
-    for (let number = 1; number <= 5; number++) {
+    for (let page = 1; page <= this.state.pages; page++) {
       items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
+        <Pagination.Item 
+          key={page} 
+          active={page === this.state.currentPage}
+          onClick={() => this.changePage(page)}
+        >
+          {page}
         </Pagination.Item>,
       )
     }
@@ -142,18 +154,19 @@ class Team extends React.Component {
             {
               this.state.squad
               .filter(item => {
-                let nationality = this.state.filters.nationality
-                if (!nationality) return item
-                else if (item.nationality === nationality) return item
+                let nationality = this.state.filters.nationality,
+                    position = this.state.filters.position
+                if ((!nationality || item.nationality === nationality)
+                && (!position || item.position === position)) return item
               })
-              .filter(item => {
-                let position = this.state.filters.position
-                if (!position) return item
-                else if (item.position === position) return item
+              .filter((item, i) => {
+                let current = this.state.currentPage,
+                    perPage = this.state.perPage
+                if ((i < current * perPage) && (i >= ((current - 1) * perPage))) return item
               })
               .map((item, index) =>
                 <tr key={item.id}>
-                  <td>{index + 1}</td>
+                  <td>{(this.state.currentPage - 1) * this.state.perPage + index + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.position}</td>
                   <td>        
@@ -172,7 +185,21 @@ class Team extends React.Component {
           </tbody>
         </Table>
         <div className="d-flex justify-content-center">
-          <Pagination>{items}</Pagination>
+          <Pagination>
+            <Pagination.First />
+            <Pagination.Prev />
+            {/* {this.state.currentPage - 2 > 1 &&
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Ellipsis />
+            } */}
+            {items}
+            {/* {search.page + 2 < search.pages &&
+              <Pagination.Ellipsis />
+              <Pagination.Item>{search.pages}</Pagination.Item>
+            } */}
+            <Pagination.Next />
+            <Pagination.Last />
+          </Pagination>
         </div>
       </div>
     )
