@@ -11,10 +11,14 @@ class Team extends React.Component {
     this.state = {
       squad: [],
       name: '',
-      nationality: '',
+      filters: {
+        position: '',
+        nationality: '',
+      },
       sortDirection: 'asc',
     }
     this.handleChangeNationality = this.handleChangeNationality.bind(this)
+    this.handleChangePosition = this.handleChangePosition.bind(this)
   }
 
   sortBy(field) {
@@ -36,7 +40,17 @@ class Team extends React.Component {
   }
 
   handleChangeNationality(event) {
-    this.setState({nationality: event.target.value});
+    this.setState({filters: {
+      nationality: event.target.value,
+      position: this.state.filters.position
+    }});
+  }
+
+  handleChangePosition(event) {
+    this.setState({filters: {
+      position: event.target.value,
+      nationality: this.state.filters.nationality
+    }});
   }
 
   componentDidMount() {
@@ -50,7 +64,10 @@ class Team extends React.Component {
     .then(
       (result) => {
         this.setState({
-          squad: result.squad,
+          squad: result.squad.map(item => {
+            if (!item.position) item.position = 'Coach'
+            return item
+          })
         })
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
@@ -86,12 +103,27 @@ class Team extends React.Component {
             <tr>
               <th>#</th>
               <th onClick={this.sortBy.bind(this, 'name')} className="pointer">Имя и фамилия</th>
-              <th>Позиция на поле</th>
+              <th>
+                <span>Позиция на поле</span>
+                <Form.Control 
+                  as="select"
+                  value={this.state.filters.position} 
+                  onChange={this.handleChangePosition}
+                >
+                <option key="0" value="">Все</option>
+                  {
+                    Array.from(new Set(this.state.squad.map(item => item.position)))
+                      .map((item, index) =>
+                        <option key={index + 1} value={item}>{item}</option>
+                    )
+                  }
+                </Form.Control>
+              </th>
               <th>
                 <span>Национальность</span>
                 <Form.Control 
                   as="select"
-                  value={this.state.nationality} 
+                  value={this.state.filters.nationality} 
                   onChange={this.handleChangeNationality}
                 >
                 <option key="0" value="">Все</option>
@@ -110,9 +142,14 @@ class Team extends React.Component {
             {
               this.state.squad
               .filter(item => {
-                let nationality = this.state.nationality
+                let nationality = this.state.filters.nationality
                 if (!nationality) return item
                 else if (item.nationality === nationality) return item
+              })
+              .filter(item => {
+                let position = this.state.filters.position
+                if (!position) return item
+                else if (item.position === position) return item
               })
               .map((item, index) =>
                 <tr key={item.id}>
