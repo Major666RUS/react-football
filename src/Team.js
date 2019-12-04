@@ -1,8 +1,9 @@
+/* eslint-disable array-callback-return */
 import React from 'react'
 import Moment from 'react-moment'
 import Flag from 'react-world-flags'
 import Countries from './countries.json'
-import { Table, Pagination } from 'react-bootstrap'
+import { Table, Form, Pagination } from 'react-bootstrap'
 
 class Team extends React.Component {
   constructor(props) {
@@ -10,8 +11,10 @@ class Team extends React.Component {
     this.state = {
       squad: [],
       name: '',
+      nationality: '',
       sortDirection: 'asc',
     }
+    this.handleChangeNationality = this.handleChangeNationality.bind(this)
   }
 
   sortBy(field) {
@@ -32,6 +35,10 @@ class Team extends React.Component {
     })
   }
 
+  handleChangeNationality(event) {
+    this.setState({nationality: event.target.value});
+  }
+
   componentDidMount() {
     const { params } = this.props.match
     fetch(`https://api.football-data.org/v2/teams/${params.id}`, {
@@ -43,15 +50,15 @@ class Team extends React.Component {
     .then(
       (result) => {
         this.setState({
-          squad: result.squad
-        });
+          squad: result.squad,
+        })
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
       // чтобы не перехватывать исключения из ошибок в самих компонентах.
       (error) => {
         this.setState({
           error
-        });
+        })
       }
     )
   }
@@ -78,15 +85,36 @@ class Team extends React.Component {
           <thead>
             <tr>
               <th>#</th>
-              <th onClick={this.sortBy.bind(this, 'name')}>Имя и фамилия</th>
+              <th onClick={this.sortBy.bind(this, 'name')} className="pointer">Имя и фамилия</th>
               <th>Позиция на поле</th>
-              <th>Национальность</th>
-              <th onClick={this.sortBy.bind(this, 'dateOfBirth')}>Дата рождения</th>
+              <th>
+                <span>Национальность</span>
+                <Form.Control 
+                  as="select"
+                  value={this.state.nationality} 
+                  onChange={this.handleChangeNationality}
+                >
+                <option key="0" value="">Все</option>
+                  {
+                    Array.from(new Set(this.state.squad.map(item => item.nationality)))
+                      .map((item, index) =>
+                        <option key={index + 1} value={item}>{item}</option>
+                    )
+                  }
+                </Form.Control>
+              </th>
+              <th onClick={this.sortBy.bind(this, 'dateOfBirth')} className="pointer">Дата рождения</th>
             </tr>
           </thead>
           <tbody>
             {
-              this.state.squad.map((item, index) =>
+              this.state.squad
+              .filter(item => {
+                let nationality = this.state.nationality
+                if (!nationality) return item
+                else if (item.nationality === nationality) return item
+              })
+              .map((item, index) =>
                 <tr key={item.id}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>

@@ -103,10 +103,10 @@ class List extends React.Component {
         <thead>
           <tr>
             <th>#</th>
-            <th onClick={this.sortBy.bind(this, 'name')}>Название команды</th>
+            <th onClick={this.sortBy.bind(this, 'name')} className="pointer">Название команды</th>
             <th>Сокращение</th>
             <th>Стадион</th>
-            <th onClick={this.sortBy.bind(this, 'founded')}>Год основания</th>
+            <th onClick={this.sortBy.bind(this, 'founded')} className="pointer">Год основания</th>
             <th>Логотип</th>
             <th>Действия</th>
           </tr>

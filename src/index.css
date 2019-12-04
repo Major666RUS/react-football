@@ -16,3 +16,9 @@ code {
 .flagImage{
   margin-right: 1rem;
 }
+.pointer {
+  cursor: pointer;
+}
+.table-dark thead th {
+  vertical-align: middle;
+}
