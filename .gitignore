@@ -9,7 +9,11 @@
 /coverage
 
 # production
+<<<<<<< HEAD
 #/build
+=======
+/build
+>>>>>>> Initial commit from Create React App
 
 # misc
 .DS_Store
