@@ -65,7 +65,7 @@ class Team extends React.Component {
     const { params } = this.props.match
     fetch(`https://api.football-data.org/v2/teams/${params.id}`, {
       headers: {
-        'X-Auth-Token': '6324a72164424ef6ae805e7e77ba04a8'
+        'X-Auth-Token': process.env.API_TOKEN
       }
     })
     .then(res => res.json())

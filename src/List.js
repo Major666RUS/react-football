@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import store from './store';
 import { Link } from 'react-router-dom'
 import { Table, Form, Button } from 'react-bootstrap';
 
@@ -6,7 +8,7 @@ class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      items: [],
+      teams: [],
       name: '',
       sortDirection: 'asc',
     }
@@ -19,31 +21,30 @@ class List extends React.Component {
 
   changeName(id) {
     this.setState({
-      items: this.state.items.map(item => {
-        if (item.id === id) item.isActive = true
-        return item
+      teams: this.state.teams.map(team => {
+        if (team.id === id) team.isActive = true
+        return team
       })
     })
-
   }
 
   saveName(id) {
     this.setState({
-      items: this.state.items.map(item => {
-        if (item.id === id) {
-          if (this.state.name !== '') item.name = this.state.name
-          item.isActive = false
+      teams: this.state.teams.map(team => {
+        if (team.id === id) {
+          if (this.state.name !== '') team.name = this.state.name
+          team.isActive = false
         }
-        return item
+        return team
       }),
       name: ''
     })
   }
 
   deleteTeam(id) {
-    let index = this.state.items.findIndex(item => item.id === id)
+    let index = this.state.teams.findIndex(team => team.id === id)
     this.setState({
-      items: this.state.items.slice(0, index).concat(this.state.items.slice(index + 1))
+      teams: this.state.teams.slice(0, index).concat(this.state.teams.slice(index + 1))
     })
   }
 
@@ -54,9 +55,9 @@ class List extends React.Component {
   }
 
   sortBy(field) {
-    let items = this.state.items.slice()
+    let teams = this.state.teams.slice()
     let sortDirection = this.state.sortDirection
-    items.sort((a, b) => {
+    teams.sort((a, b) => {
       if (a[field] < b[field]) {
         return sortDirection === 'desc' ? 1 : -1
       }
@@ -66,7 +67,7 @@ class List extends React.Component {
       return 0
     })
     this.setState({
-      items: items,
+      teams: teams,
       sortDirection: this.state.sortDirection === 'asc' ? 'desc' : 'asc'
     })
   }
@@ -74,18 +75,24 @@ class List extends React.Component {
   componentDidMount() {
     fetch('https://api.football-data.org/v2/competitions/2021/teams?season=2019', {
       headers: {
-        'X-Auth-Token': '6324a72164424ef6ae805e7e77ba04a8'
+        'X-Auth-Token': process.env.API_TOKEN
       }
     })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          items: result.teams.map(item => {
-            item.isActive = false
-            return item
+    .then(data => data.json())
+    .then((res) => {
+        // this.setState({
+        //   teams: res.teams.map(team => {
+        //     team.isActive = false
+        //     return team
+        //   })
+        // })
+        store.dispatch({
+          type: 'SET_TEAMS',
+          users: res.teams.map(team => {
+            team.isActive = false
+            return team
           })
-        })
+        });
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
       // чтобы не перехватывать исключения из ошибок в самих компонентах.
@@ -113,35 +120,35 @@ class List extends React.Component {
         </thead>
         <tbody>
           {
-            this.state.items.map((item, index) =>
-              <tr key={item.id}>
+            this.state.teams.map((team, index) =>
+              <tr key={team.id}>
                 <td>{index + 1}</td>
-                <td onClick={this.changeName.bind(this, item.id)}>
-                  { item.isActive ? (
+                <td onClick={this.changeName.bind(this, team.id)}>
+                  { team.isActive ? (
                     <Form.Group controlId="Name">
                       <Form.Label>Название команды</Form.Label>
                       <Form.Control 
                         autoFocus
                         placeholder="Название"
-                        onBlur={this.saveName.bind(this, item.id)}
-                        onKeyDown={(e) => this.handleEnter(item.id, e)}
+                        onBlur={this.saveName.bind(this, team.id)}
+                        onKeyDown={(e) => this.handleEnter(team.id, e)}
                         className="text-muted"
                         value={this.state.name} 
                         onChange={this.handleChangeName}
                       />
                     </Form.Group>
-                  ) : ( item.name
+                  ) : ( team.name
                   )}
                 </td>
-                <td>{item.tla}</td>
-                <td>{item.venue}</td>
-                <td>{item.founded}</td>
-                <td><img src={item.crestUrl} alt={item.name} width="75" height="75"/></td>
+                <td>{team.tla}</td>
+                <td>{team.venue}</td>
+                <td>{team.founded}</td>
+                <td><img src={team.crestUrl} alt={team.name} width="75" height="75"/></td>
                 <td>
-                  <Link to={`/teams/${item.id}`}>
+                  <Link to={`/teams/${team.id}`}>
                     <Button variant="primary">Подробнее</Button>
                   </Link>
-                  <Button variant="danger" onClick={this.deleteTeam.bind(this, item.id)}>Удалить</Button>
+                  <Button variant="danger" onClick={this.deleteTeam.bind(this, team.id)}>Удалить</Button>
                 </td>
               </tr>
             )
@@ -152,4 +159,10 @@ class List extends React.Component {
   }
 }
 
-export default List
+const mapStateToProps = function(store) {
+  return {
+    teams: store.listState.teams
+  }
+}
+
+export default connect(mapStateToProps)(List)
