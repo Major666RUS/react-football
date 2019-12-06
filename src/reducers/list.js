@@ -10,9 +10,7 @@ function listReducer(state = initialState, action) {
   switch (action.type) {
     case SET_TEAMS:
       return Object.assign({}, state, {
-        teams: [
-          ...state.teams
-        ]
+        teams: action.teams
       })
     default:
       return state

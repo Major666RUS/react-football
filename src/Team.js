@@ -1,5 +1,7 @@
 /* eslint-disable array-callback-return */
 import React from 'react'
+import { connect } from 'react-redux';
+import store from './store';
 import Moment from 'react-moment'
 import Flag from 'react-world-flags'
 import Countries from './countries.json'
@@ -65,19 +67,34 @@ class Team extends React.Component {
     const { params } = this.props.match
     fetch(`https://api.football-data.org/v2/teams/${params.id}`, {
       headers: {
-        'X-Auth-Token': process.env.API_TOKEN
+        'X-Auth-Token': '6324a72164424ef6ae805e7e77ba04a8'
       }
     })
-    .then(res => res.json())
+    .then(data => data.json())
     .then(
-      (result) => {
-        this.setState({
-          squad: result.squad.map(item => {
+      (res) => {
+
+        store.dispatch({
+          type: 'SET_PLAYERS',
+          squad: res.squad.map(item => {
             if (!item.position) item.position = 'Coach'
             return item
           }),
-          pages: Math.ceil(result.squad.length / 10)
         })
+
+        store.dispatch({
+          type: 'SET_PAGES',
+          pages: Math.ceil(res.squad.length / 10)
+        })
+
+
+        // this.setState({
+        //   squad: result.squad.map(item => {
+        //     if (!item.position) item.position = 'Coach'
+        //     return item
+        //   }),
+        //   pages: Math.ceil(result.squad.length / 10)
+        // })
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
       // чтобы не перехватывать исключения из ошибок в самих компонентах.
@@ -96,7 +113,7 @@ class Team extends React.Component {
     }
 
     let items = []
-    for (let page = 1; page <= this.state.pages; page++) {
+    for (let page = 1; page <= store.getState().teamState.pages; page++) {
       items.push(
         <Pagination.Item 
           key={page} 
@@ -124,7 +141,7 @@ class Team extends React.Component {
                 >
                 <option key="0" value="">Все</option>
                   {
-                    Array.from(new Set(this.state.squad.map(item => item.position)))
+                    Array.from(new Set(store.getState().teamState.squad.map(item => item.position)))
                       .map((item, index) =>
                         <option key={index + 1} value={item}>{item}</option>
                     )
@@ -140,7 +157,7 @@ class Team extends React.Component {
                 >
                 <option key="0" value="">Все</option>
                   {
-                    Array.from(new Set(this.state.squad.map(item => item.nationality)))
+                    Array.from(new Set(store.getState().teamState.squad.map(item => item.nationality)))
                       .map((item, index) =>
                         <option key={index + 1} value={item}>{item}</option>
                     )
@@ -152,7 +169,7 @@ class Team extends React.Component {
           </thead>
           <tbody>
             {
-              this.state.squad
+              store.getState().teamState.squad
               .filter(item => {
                 let nationality = this.state.filters.nationality,
                     position = this.state.filters.position
@@ -206,4 +223,11 @@ class Team extends React.Component {
   }
 }
 
-export default Team
+const mapStateToProps = function(store) {
+  return {
+    squad: store.teamState.squad,
+    pages: store.teamState.pages,
+  }
+}
+
+export default connect(mapStateToProps)(Team)

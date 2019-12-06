@@ -75,24 +75,18 @@ class List extends React.Component {
   componentDidMount() {
     fetch('https://api.football-data.org/v2/competitions/2021/teams?season=2019', {
       headers: {
-        'X-Auth-Token': process.env.API_TOKEN
+        'X-Auth-Token': '6324a72164424ef6ae805e7e77ba04a8'
       }
     })
     .then(data => data.json())
     .then((res) => {
-        // this.setState({
-        //   teams: res.teams.map(team => {
-        //     team.isActive = false
-        //     return team
-        //   })
-        // })
         store.dispatch({
           type: 'SET_TEAMS',
-          users: res.teams.map(team => {
+          teams: res.teams.map(team => {
             team.isActive = false
             return team
           })
-        });
+        })
       },
       // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
       // чтобы не перехватывать исключения из ошибок в самих компонентах.
@@ -120,7 +114,7 @@ class List extends React.Component {
         </thead>
         <tbody>
           {
-            this.state.teams.map((team, index) =>
+            store.getState().listState.teams.map((team, index) =>
               <tr key={team.id}>
                 <td>{index + 1}</td>
                 <td onClick={this.changeName.bind(this, team.id)}>
